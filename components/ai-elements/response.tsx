@@ -322,14 +322,15 @@ const components: Options['components'] = {
     // Extract code content from children safely
     let code = '';
     if (
-      isValidElement(children) &&
-      children.props &&
-      typeof children.props.children === 'string'
-    ) {
-      code = children.props.children;
-    } else if (typeof children === 'string') {
-      code = children;
-    }
+  isValidElement(children) &&
+  children.props &&
+  typeof (children.props as { children?: React.ReactNode }).children === 'string'
+) {
+  code = (children.props as { children: string }).children;
+} else if (typeof children === 'string') {
+  code = children;
+}
+
 
     return (
       <CodeBlock
