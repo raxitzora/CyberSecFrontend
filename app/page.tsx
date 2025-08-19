@@ -135,7 +135,7 @@ export default function ChatBotDemo() {
     setMessages(chat.messages);
     setCurrentChatId(chat.id);
     setError(null);
-    setIsHistoryOpen(false); // Close history on mobile after selection
+    setIsHistoryOpen(false);
   };
 
   const handleNewChat = () => {
@@ -143,7 +143,7 @@ export default function ChatBotDemo() {
     setInput("");
     setError(null);
     setCurrentChatId(null);
-    setIsHistoryOpen(false); // Close history on mobile
+    setIsHistoryOpen(false);
   };
 
   const handleDeleteChat = (id: string) => {
@@ -152,7 +152,7 @@ export default function ChatBotDemo() {
       setMessages([]);
       setCurrentChatId(null);
     }
-    setIsHistoryOpen(false); // Close history on mobile
+    setIsHistoryOpen(false);
   };
 
   const handleClearHistory = () => {
@@ -160,85 +160,96 @@ export default function ChatBotDemo() {
     setMessages([]);
     setError(null);
     setCurrentChatId(null);
-    setIsHistoryOpen(false); // Close history on mobile
+    setIsHistoryOpen(false);
     localStorage.removeItem("chat_history");
   };
 
   const toggleHistory = () => {
-    console.log("Toggling history, isHistoryOpen:", !isHistoryOpen); // Debug log
     setIsHistoryOpen(!isHistoryOpen);
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 dark:bg-gray-900 pt-16 sm:pt-0">
+    <div className="flex flex-col h-screen bg-gradient-to-b from-gray-900 to-gray-800 dark:bg-gray-900 pt-16 sm:pt-0">
       {/* Hamburger Menu Button for Mobile */}
-      <div className="sm:hidden p-4 border-b border-gray-700 bg-gray-900">
+      <div className="sm:hidden p-4 border-b border-gray-700 bg-gray-900/80 backdrop-blur-md">
         <button
           onClick={toggleHistory}
-          className="text-white focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-md p-2"
+          className="text-gray-200 p-2 rounded-lg hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 border border-2 solid"
           aria-label={isHistoryOpen ? "Close history menu" : "Open history menu"}
         >
-          <Menu className="h-6 w-6" />
+          <h2 className="text-sm font-extrabold">History</h2>
+          <Menu className="h-6 w-6"/>
+
         </button>
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col sm:flex-row flex-1">
+      <div className="flex flex-col sm:flex-row flex-1 overflow-hidden">
         {/* Chat History Sidebar */}
-        <div className="sm:w-64 md:w-80">
-          <ChatHistory
-            history={history}
-            onSelectChat={handleSelectChat}
-            onNewChat={handleNewChat}
-            onDeleteChat={handleDeleteChat}
-            isLoading={loading}
-            isOpen={isHistoryOpen}
-          />
+        <div
+          className={`sm:w-72 md:w-80 transition-all duration-500 ease-in-out sm:block ${
+            isHistoryOpen
+              ? "block max-h-full opacity-100"
+              : "hidden max-h-0 opacity-0 sm:max-h-full sm:opacity-100"
+          }`}
+        >
+          <div className="h-full">
+            <ChatHistory
+              history={history}
+              onSelectChat={handleSelectChat}
+              onNewChat={handleNewChat}
+              onDeleteChat={handleDeleteChat}
+              isLoading={loading}
+              isOpen={isHistoryOpen}
+            />
+          </div>
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 p-4 sm:p-6 flex flex-col">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100">
-              {messages.length > 0 ? "Conversation" : "Welcome to CyberSecAI"}
-            </h2>
+        <div className="flex-1 p-4 sm:p-6 flex flex-col gap-4">
+          <div className="flex justify-between items-center">
+              {messages.length > 0}
             {history.length > 0 && (
               <button
                 onClick={handleClearHistory}
-                className="text-sm text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors"
-                aria-label="Clear all chat history"
+                className="border border-2 rounded-3xl text-xl font-medium text-red-500 hover:text-red-700"
               >
                 Clear History
               </button>
             )}
           </div>
-
-          <Conversation className="flex-1 bg-[#212121] dark:bg-gray-800 rounded-lg shadow-sm overflow-y-auto">
-            <ConversationContent>
+<div className="flex-1 overflow-y-auto">
+          <Conversation>
+            <ConversationContent className="p-4 sm:p-6">
               {messages.length === 0 && !loading && (
-                <div className="flex flex-col items-center justify-center h-full text-gray-500 dark:text-gray-400">
-                  <p className="text-base sm:text-lg">Start a new conversation</p>
-                  <p className="text-sm mt-2">Type your message below or select a previous chat from the sidebar.</p>
+                <div className="flex flex-col items-center justify-center h-full text-gray-300">
+                  <p className="text-lg sm:text-xl font-medium">Start a New Conversation</p>
+                  <p className="text-sm sm:text-base mt-2 opacity-75">
+                    Type your message below or select a previous chat from the sidebar.
+                  </p>
                 </div>
+                
               )}
               {messages.map((msg) => (
-                <Message key={msg.id} from={msg.role} className="transition-all duration-200">
-                  <MessageContent
-                    className={
-                      msg.role === "user" ? "bg-blue-100 dark:bg-blue-900" : "bg-blue-600 dark:bg-gray-700"
-                    }
-                  >
+                <Message
+                  key={msg.id}
+                  from={msg.role}
+                  className={`transition-all duration-200 mb-4 ${
+                    msg.role === "user" ? "ml-auto max-w-[80%]" : "mr-auto max-w-[80%]"
+                  }`}
+                >
+                  <MessageContent>
                     <Response>{msg.text}</Response>
                   </MessageContent>
                 </Message>
               ))}
               {loading && (
-                <div className="p-4">
-                  <Loader />
+                <div className="p-4 flex justify-center">
+                  <Loader className="text-orange-500" />
                 </div>
               )}
               {error && (
-                <div className="p-4 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center gap-2 text-red-700 dark:text-red-300">
+                <div>
                   <AlertCircle className="h-5 w-5" />
                   <span>{error}</span>
                 </div>
@@ -247,19 +258,17 @@ export default function ChatBotDemo() {
             </ConversationContent>
             <ConversationScrollButton />
           </Conversation>
+          </div>
 
-          <PromptInput onSubmit={handleSubmit} className="mt-4">
+          <PromptInput onSubmit={handleSubmit}>
+            
             <PromptInputTextarea
               onChange={(e) => setInput(e.target.value)}
               value={input}
-              className="bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 focus:ring-blue-500 dark:focus:ring-blue-400 text-sm sm:text-base"
-              placeholder="Ask anything..."
-              aria-label="Type your message"
             />
             <PromptInputToolbar>
               <PromptInputSubmit
                 disabled={!input.trim() || loading}
-                className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm sm:text-base"
               />
             </PromptInputToolbar>
           </PromptInput>

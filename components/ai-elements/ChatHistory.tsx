@@ -63,7 +63,7 @@ export function ChatHistory({
             placeholder="Search chats..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-8 sm:pl-9 pr-3 sm:pr-4 py-2 text-xs sm:text-sm bg-gray-800 border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            className="w-full pl-8 sm:pl-9 pr-3 sm:pr-4 py-2 text-xl sm:text-sm bg-gray-800 border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             aria-label="Search chat history"
           />
         </div>

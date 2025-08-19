@@ -39,7 +39,7 @@ export type PromptInputTextareaProps = ComponentProps<typeof Textarea> & {
 export const PromptInputTextarea = ({
   onChange,
   className,
-  placeholder = 'What would you like to know?',
+  placeholder = 'Ask anything about CyberSecurity',
   minHeight = 48,
   maxHeight = 164,
   ...props
@@ -158,7 +158,7 @@ export const PromptInputSubmit = ({
 
   return (
     <Button
-      className={cn('gap-1.5 rounded-lg', className)}
+      className={cn('gap-1.5 rounded-lg bg-purple-600', className)}
       size={size}
       type="submit"
       variant={variant}
