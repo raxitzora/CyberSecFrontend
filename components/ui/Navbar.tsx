@@ -25,7 +25,7 @@ export default function Navbar() {
 
           {/* Center Text */}
           <div className="hidden sm:flex flex-1 justify-center">
-            <span className="text-lg font-medium text-gray-200 group-hover:text-white transition-colors duration-300">
+            <span className="text-3xl font-bold text-yellow-500  duration-300">
               Welcome to Unfiltered CyberSpace
             </span>
           </div>
