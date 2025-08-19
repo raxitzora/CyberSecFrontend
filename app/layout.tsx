@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   keywords: ["cybersecurity", "AI chatbot", "ethical hacking", "Raxit Zora", "cybersecurity AI","AI engineering","AI engineering project","Fullstack aiengineering project","fastapi","python and nextjs","typescript and python"],
   authors: [{ name: "Raxit Zora" }],
   openGraph: {
-    title: "Cybersecurity AI Chatbot | Raxit Zora",
+    title: "CyberSec AI Chatbot",
     description: "Interact with the Cybersecurity AI chatbot created by Raxit Zora.",
-    url: "https://cybersecurityai.vercel.app",
+    url: "https://cybersecurityai.vercel.app/",
     siteName: "Cybersecurity AI Chatbot",
     images: [
       {
