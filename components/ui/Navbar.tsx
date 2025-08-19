@@ -18,7 +18,7 @@ export default function Navbar() {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center space-x-2 group">
               <span className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 group-hover:from-blue-500 group-hover:to-purple-600 transition-all duration-300">
-                ZoraCyberSecAI
+                ZoroAICyberSec
               </span>
             </Link>
           </div>
@@ -26,7 +26,7 @@ export default function Navbar() {
           {/* Center Text */}
           <div className="hidden sm:flex flex-1 justify-center">
             <span className="text-lg font-medium text-gray-200 group-hover:text-white transition-colors duration-300">
-              Unfiltered CyberSecurity AI
+              Welcome to Unfiltered CyberSpace
             </span>
           </div>
 

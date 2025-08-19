@@ -212,9 +212,9 @@ export default function ChatBotDemo() {
             {history.length > 0 && (
               <button
                 onClick={handleClearHistory}
-                className="border border-2 rounded-3xl text-xl font-medium text-red-500 hover:text-red-700"
+                className="border-yellow-500 border-2  w-64 h-14 rounded-3xl text-xl font-extrabold text-red-500 hover:text-red-700"
               >
-                Clear History
+                Clear Neural Network
               </button>
             )}
           </div>
