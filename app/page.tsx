@@ -170,7 +170,7 @@ export default function ChatBotDemo() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900 pt-16 sm:pt-0">
+    <div className="flex flex-col h-screen bg-gray-900 dark:bg-gray-900 pt-16 sm:pt-0">
       {/* Hamburger Menu Button for Mobile */}
       <div className="sm:hidden p-4 border-b border-gray-700 bg-gray-900">
         <button
@@ -213,7 +213,7 @@ export default function ChatBotDemo() {
             )}
           </div>
 
-          <Conversation className="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-y-auto">
+          <Conversation className="flex-1 bg-[#212121] dark:bg-gray-800 rounded-lg shadow-sm overflow-y-auto">
             <ConversationContent>
               {messages.length === 0 && !loading && (
                 <div className="flex flex-col items-center justify-center h-full text-gray-500 dark:text-gray-400">
@@ -225,7 +225,7 @@ export default function ChatBotDemo() {
                 <Message key={msg.id} from={msg.role} className="transition-all duration-200">
                   <MessageContent
                     className={
-                      msg.role === "user" ? "bg-blue-100 dark:bg-blue-900" : "bg-gray-100 dark:bg-gray-700"
+                      msg.role === "user" ? "bg-blue-100 dark:bg-blue-900" : "bg-blue-600 dark:bg-gray-700"
                     }
                   >
                     <Response>{msg.text}</Response>
@@ -253,7 +253,7 @@ export default function ChatBotDemo() {
               onChange={(e) => setInput(e.target.value)}
               value={input}
               className="bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 focus:ring-blue-500 dark:focus:ring-blue-400 text-sm sm:text-base"
-              placeholder="Ask Grok anything..."
+              placeholder="Ask anything..."
               aria-label="Type your message"
             />
             <PromptInputToolbar>
