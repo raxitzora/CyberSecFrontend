@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaInstagram, FaBriefcase } from "react-icons/fa";
 
 export default function AboutMe() {

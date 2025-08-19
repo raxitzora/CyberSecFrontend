@@ -21,6 +21,7 @@ interface ChatHistoryProps {
   onNewChat?: () => void;
   onDeleteChat?: (id: string) => void;
   isLoading?: boolean;
+  isOpen?: boolean; // Controls visibility in mobile menu
 }
 
 export function ChatHistory({
@@ -29,6 +30,7 @@ export function ChatHistory({
   onNewChat,
   onDeleteChat,
   isLoading = false,
+  isOpen = false,
 }: ChatHistoryProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const filteredHistory = history.filter((chat) => {
@@ -47,23 +49,27 @@ export function ChatHistory({
   };
 
   return (
-    <div className="flex flex-col h-full w-full md:w-80 bg-gradient-to-b from-gray-900 to-gray-800 border-r border-gray-700 shadow-xl transition-all duration-300">
+    <div
+      className={`flex flex-col h-full w-full sm:w-64 md:w-80 max-w-xs bg-gradient-to-b from-gray-900 to-gray-800 border-r border-gray-700 shadow-xl transition-all duration-300 ease-in-out sm:pt-0 ${
+        isOpen ? "max-h-screen" : "max-h-0 sm:max-h-full overflow-hidden sm:overflow-visible"
+      }`}
+    >
       {/* Search + New Chat */}
-      <div className="p-4 border-b border-gray-700">
-        <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+      <div className="p-3 sm:p-4 border-b border-gray-700">
+        <div className="relative mb-3 sm:mb-4">
+          <Search className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <input
             type="text"
             placeholder="Search chats..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-sm bg-gray-800 border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            className="w-full pl-8 sm:pl-9 pr-3 sm:pr-4 py-2 text-xs sm:text-sm bg-gray-800 border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             aria-label="Search chat history"
           />
         </div>
         <button
           onClick={onNewChat}
-          className="w-full px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 shadow-md transition-colors duration-200"
+          className="w-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 shadow-md transition-colors duration-200"
           aria-label="Start new chat"
         >
           + New Chat
@@ -71,13 +77,13 @@ export function ChatHistory({
       </div>
 
       {/* Chat List */}
-      <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
+      <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 touch-auto">
         {isLoading ? (
           <div className="flex justify-center items-center h-full">
-            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-t-2 border-b-2 border-blue-500"></div>
           </div>
         ) : filteredHistory.length === 0 ? (
-          <p className="text-sm text-gray-400 p-4 text-center">
+          <p className="text-xs sm:text-sm text-gray-400 p-3 sm:p-4 text-center">
             {searchTerm ? "No matching chats found" : "No chats yet"}
           </p>
         ) : (
@@ -89,7 +95,7 @@ export function ChatHistory({
               return (
                 <li
                   key={chat.id}
-                  className="flex justify-between items-center px-4 py-3 hover:bg-gray-700 transition-colors duration-150 rounded-lg mx-2 my-1"
+                  className="flex justify-between items-center px-3 sm:px-4 py-2 sm:py-3 hover:bg-gray-700 transition-colors duration-150 rounded-lg mx-1 sm:mx-2 my-1"
                 >
                   <button
                     onClick={() => onSelectChat?.(chat)}
@@ -98,7 +104,7 @@ export function ChatHistory({
                     aria-label={`Select chat: ${firstUserMessage}`}
                   >
                     <div className="flex flex-col">
-                      <span className="text-sm font-medium text-gray-100 truncate">
+                      <span className="text-xs sm:text-sm font-medium text-gray-100 truncate max-w-[calc(100%-2rem)] sm:max-w-[calc(100%-3rem)]">
                         {firstUserMessage.length > 40
                           ? firstUserMessage.substring(0, 40) + "..."
                           : firstUserMessage}
@@ -110,7 +116,7 @@ export function ChatHistory({
                   </button>
                   <button
                     onClick={() => onDeleteChat?.(chat.id)}
-                    className="ml-2 p-1 text-red-500 hover:text-red-400 transition-colors duration-150"
+                    className="ml-1 sm:ml-2 p-1 text-red-500 hover:text-red-400 transition-colors duration-150"
                     title="Delete chat"
                     aria-label={`Delete chat: ${firstUserMessage}`}
                   >
