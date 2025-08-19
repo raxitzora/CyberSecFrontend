@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: "https://cybersecurityai.vercel.app/about",
+      url: "https://cybersecurityai.vercel.app/aboutme",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
