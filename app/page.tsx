@@ -234,11 +234,13 @@ export default function ChatBotDemo() {
           <Message
             key={msg.id}
             from={msg.role}
-            className={`transition-all duration-200 mb-4 ${
-              msg.role === "user" ? "ml-auto max-w-[80%]" : "mr-auto max-w-[80%]"
+            className={`transition-all duration-200 mb-4${
+              msg.role === "user" ? "ml-auto max-w-[40%]" : "mr-auto max-w-full"
             }`}
           >
-            <MessageContent>
+            <MessageContent className="w-full bg-transparent shadow-none p-0">
+       
+
               <Response>{msg.text}</Response>
             </MessageContent>
           </Message>
