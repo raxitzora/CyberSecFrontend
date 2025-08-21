@@ -114,10 +114,5 @@
 
 
 
-pre, code {
-  white-space: pre;          /* don’t wrap code */
-  word-break: normal;
-  overflow-x: auto;          /* horizontal scroll instead of crop */
-  -webkit-overflow-scrolling: touch; /* smooth on iOS/Android */
-  max-width: 100%;           /* never overflow container */
-}
+
+

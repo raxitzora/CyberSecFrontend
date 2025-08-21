@@ -49,6 +49,7 @@ export default function ChatBotDemo() {
   });
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,10 +69,12 @@ export default function ChatBotDemo() {
       role: "user",
       text: input,
     };
+
     setMessages((prev) => [...prev, userMessage]);
     setError(null);
 
     const chatId = currentChatId || Date.now().toString();
+
     if (!currentChatId) {
       setCurrentChatId(chatId);
       setHistory((prev) => [
@@ -81,9 +84,7 @@ export default function ChatBotDemo() {
     } else {
       setHistory((prev) =>
         prev.map((h) =>
-          h.id === currentChatId
-            ? { ...h, messages: [...h.messages, userMessage] }
-            : h
+          h.id === currentChatId ? { ...h, messages: [...h.messages, userMessage] } : h
         )
       );
     }
@@ -96,7 +97,9 @@ export default function ChatBotDemo() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
       });
+
       if (!res.ok) throw new Error("Failed to fetch response");
+
       const data = await res.json();
 
       const botMessage: ChatMessage = {
@@ -104,8 +107,8 @@ export default function ChatBotDemo() {
         role: "assistant",
         text: data.reply,
       };
-      setMessages((prev) => [...prev, botMessage]);
 
+      setMessages((prev) => [...prev, botMessage]);
       setHistory((prev) =>
         prev.map((h) =>
           h.id === chatId ? { ...h, messages: [...h.messages, botMessage] } : h
@@ -114,11 +117,13 @@ export default function ChatBotDemo() {
     } catch (e) {
       console.error(e);
       setError("Failed to connect to the chatbot. Please try again.");
+
       const errorMessage: ChatMessage = {
         id: Date.now().toString() + "-error",
         role: "assistant",
         text: "⚠️ Error connecting to chatbot.",
       };
+
       setMessages((prev) => [...prev, errorMessage]);
       setHistory((prev) =>
         prev.map((h) =>
@@ -178,8 +183,7 @@ export default function ChatBotDemo() {
           aria-label={isHistoryOpen ? "Close history menu" : "Open history menu"}
         >
           <h2 className="text-sm font-extrabold">History</h2>
-          <Menu className="h-6 w-6"/>
-
+          <Menu className="h-6 w-6" />
         </button>
       </div>
 
@@ -191,7 +195,7 @@ export default function ChatBotDemo() {
             isHistoryOpen
               ? "block max-h-full opacity-100"
               : "hidden max-h-0 opacity-0 sm:max-h-full sm:opacity-100"
-          }`}
+          } bg-gray-800/80 backdrop-blur-md sm:bg-gray-800/90 sm:border-r sm:border-gray-700`}
         >
           <div className="h-full">
             <ChatHistory
@@ -205,73 +209,95 @@ export default function ChatBotDemo() {
           </div>
         </div>
 
-       {/* Chat Area */}
-<div className="flex-1 p-4 sm:p-6 flex flex-col gap-4 min-h-0">
-  <div className="flex justify-between items-center">
-    {messages.length > 0}
-    {history.length > 0 && (
-      <button
-        onClick={handleClearHistory}
-        className="border-yellow-500 border-2 w-64 h-14 rounded-3xl text-xl font-extrabold text-red-500 hover:text-red-700"
-      >
-        Clear Neural Network
-      </button>
-    )}
-  </div>
-  {/* 👇 Scrollable chat container */}
-  <div className="flex-1 overflow-y-auto min-h-0">
-    <Conversation>
-      <ConversationContent className="p-4 sm:p-6 space-y">
-        {messages.length === 0 && !loading && (
-          <div className="flex flex-col items-center justify-center h-full text-gray-300">
-            <p className="text-lg sm:text-xl font-medium">Start a New Conversation</p>
-            <p className="text-sm sm:text-base mt-2 opacity-75">
-              Type your message below or select a previous chat from the sidebar.
-            </p>
-          </div>
-        )}
-        {messages.map((msg) => (
-          <Message
-            key={msg.id}
-            from={msg.role}
-            className={`transition-all duration-200 mb-4${
-              msg.role === "user" ? "ml-auto max-w-[40%]" : "mr-auto max-w-full"
-            }`}
-          >
-            <MessageContent className="w-full bg-transparent shadow-none p-0">
-       
+        {/* Chat Area */}
+        <div className="flex-1 p-4 sm:p-6 flex flex-col gap-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+              {messages.length > 0 ? "Conversation" : "Welcome to CyberSecAI"}
+            </h2>
 
-              <Response>{msg.text}</Response>
-            </MessageContent>
-          </Message>
-        ))}
-        {loading && (
-          <div className="p-4 flex justify-center">
-            <Loader className="text-orange-500" />
+            {history.length > 0 && (
+              <button
+                onClick={handleClearHistory}
+                className="text-sm font-medium text-red-400 hover:text-red-500 dark:hover:text-red-300 transition-colors duration-200"
+                aria-label="Clear all chat history"
+              >
+                Clear History
+              </button>
+            )}
           </div>
-        )}
-        {error && (
-          <div className="flex items-center gap-2 text-red-400">
-            <AlertCircle className="h-5 w-5" />
-            <span>{error}</span>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
-      </ConversationContent>
-      <ConversationScrollButton />
-    </Conversation>
-  </div>
 
-          <PromptInput onSubmit={handleSubmit}>
-    <PromptInputTextarea
-      onChange={(e) => setInput(e.target.value)}
-      value={input}
-    />
-    <PromptInputToolbar>
-      <PromptInputSubmit disabled={!input.trim() || loading} />
-    </PromptInputToolbar>
-  </PromptInput>
-</div>
+          <Conversation className="flex-1 bg-gray-800/80 dark:bg-gray-800/90 rounded-xl shadow-lg overflow-y-auto backdrop-blur-md">
+            <ConversationContent className="p-4 sm:p-6">
+              {messages.length === 0 && !loading && (
+                <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                  <p className="text-lg sm:text-xl font-medium">
+                    Start a New Conversation
+                  </p>
+                  <p className="text-sm sm:text-base mt-2 opacity-75">
+                    Type your message below or select a previous chat from the sidebar.
+                  </p>
+                </div>
+              )}
+
+              {messages.map((msg) => (
+                <Message
+                  key={msg.id}
+                  from={msg.role}
+                  className={`transition-all duration-200 mb-4 ${
+                    msg.role === "user"
+                      ? "ml-auto max-w-[80%]"
+                      : "mr-auto max-w-[80%]"
+                  }`}
+                >
+                  <MessageContent
+                    className={`rounded-lg p-3 sm:p-4 ${
+                      msg.role === "user"
+                        ? "bg-blue-600/80 text-white"
+                        : "bg-gray-700/80 text-gray-100"
+                    } backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow duration-200`}
+                  >
+                    <Response>{msg.text}</Response>
+                  </MessageContent>
+                </Message>
+              ))}
+
+              {loading && (
+                <div className="p-4 flex justify-center">
+                  <Loader className="text-blue-400 animate-spin" />
+                </div>
+              )}
+
+              {error && (
+                <div className="p-4 bg-red-900/30 rounded-lg flex items-center gap-2 text-red-300">
+                  <AlertCircle className="h-5 w-5" />
+                  <span>{error}</span>
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </ConversationContent>
+
+            <ConversationScrollButton className="bg-gray-700/50 hover:bg-gray-600/50 text-gray-200" />
+          </Conversation>
+
+          <PromptInput onSubmit={handleSubmit} className="mt-4">
+            <PromptInputTextarea
+              onChange={(e) => setInput(e.target.value)}
+              value={input}
+              rows={1}
+              className="bg-gray-400 dark:bg-gray-700/90 border border-gray-600 dark:border-gray-500 focus:ring-2 focus:ring-blue-500 text-gray-100 rounded-lg text-sm sm:text-base placeholder-gray-400 resize-none"
+              placeholder="Ask anything about cybersecurity..."
+              aria-label="Type your message"
+            />
+            <PromptInputToolbar>
+              <PromptInputSubmit
+                disabled={!input.trim() || loading}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium rounded-lg px-4 py-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              />
+            </PromptInputToolbar>
+          </PromptInput>
+        </div>
       </div>
     </div>
   );

@@ -6,10 +6,7 @@ import { CheckIcon, CopyIcon } from 'lucide-react';
 import type { ComponentProps, HTMLAttributes, ReactNode } from 'react';
 import { createContext, useContext, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {
-  oneDark,
-  oneLight,
-} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 type CodeBlockContextType = {
   code: string;
@@ -35,31 +32,27 @@ export const CodeBlock = ({
   ...props
 }: CodeBlockProps) => (
   <CodeBlockContext.Provider value={{ code }}>
-   <div
-  className={cn(
-    "relative w-full overflow-x-auto rounded-md border bg-background text-foreground",
-    className
-  )}
-  style={{ WebkitOverflowScrolling: "touch" }} // smooth scroll on mobile
-  {...props}
->
-
+    <div
+      className={cn(
+        'relative w-full overflow-x-auto rounded-md border bg-background text-foreground',
+        className
+      )}
+      style={{ WebkitOverflowScrolling: 'touch' }} // smooth scroll on mobile
+      {...props}
+    >
       <div className="relative">
-        {/* @ts-ignore */}
         <SyntaxHighlighter
           className="overflow-hidden dark:hidden"
-          codeTagProps={{
-            className: 'font-mono text-sm',
-          }}
+          codeTagProps={{ className: 'font-mono text-sm' }}
           customStyle={{
             margin: 0,
             padding: '1rem',
             fontSize: '0.9rem',
+            lineHeight: '1.5',
+            overflowX: 'auto',
+            borderRadius: '0.5rem',
             background: 'hsl(var(--background))',
             color: 'hsl(var(--foreground))',
-            lineHeight:"1.5",
-            overflowX:"auto",
-            borderRadius:"0.5rem"
           }}
           language={language}
           lineNumberStyle={{
@@ -72,15 +65,17 @@ export const CodeBlock = ({
         >
           {code}
         </SyntaxHighlighter>
+
         <SyntaxHighlighter
           className="hidden overflow-hidden dark:block"
-          codeTagProps={{
-            className: 'font-mono text-sm',
-          }}
+          codeTagProps={{ className: 'font-mono text-sm' }}
           customStyle={{
             margin: 0,
             padding: '1rem',
             fontSize: '0.875rem',
+            lineHeight: '1.5',
+            overflowX: 'auto',
+            borderRadius: '0.5rem',
             background: 'hsl(var(--background))',
             color: 'hsl(var(--foreground))',
           }}
@@ -95,9 +90,9 @@ export const CodeBlock = ({
         >
           {code}
         </SyntaxHighlighter>
+
         {children && (
           <div className="absolute top-2 right-2 flex items-center gap-2">
-            
             {children}
           </div>
         )}
@@ -124,7 +119,7 @@ export const CodeBlockCopyButton = ({
   const { code } = useContext(CodeBlockContext);
 
   const copyToClipboard = async () => {
-    if (typeof window === 'undefined' || !navigator.clipboard.writeText) {
+    if (typeof window === 'undefined' || !navigator.clipboard?.writeText) {
       onError?.(new Error('Clipboard API not available'));
       return;
     }
@@ -145,8 +140,9 @@ export const CodeBlockCopyButton = ({
     <Button
       className={cn('shrink-0', className)}
       onClick={copyToClipboard}
-      size="icon" 
+      size="icon"
       variant="ghost"
+      aria-label={isCopied ? 'Copied' : 'Copy code'}
       {...props}
     >
       {children ?? <Icon size={14} />}
