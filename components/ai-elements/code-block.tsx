@@ -35,13 +35,15 @@ export const CodeBlock = ({
   ...props
 }: CodeBlockProps) => (
   <CodeBlockContext.Provider value={{ code }}>
-    <div
-      className={cn(
-        'relative w-full overflow-hidden rounded-md border bg-background text-foreground',
-        className
-      )}
-      {...props}
-    >
+   <div
+  className={cn(
+    "relative w-full overflow-x-auto rounded-md border bg-background text-foreground",
+    className
+  )}
+  style={{ WebkitOverflowScrolling: "touch" }} // smooth scroll on mobile
+  {...props}
+>
+
       <div className="relative">
         {/* @ts-ignore */}
         <SyntaxHighlighter
