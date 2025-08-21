@@ -205,74 +205,71 @@ export default function ChatBotDemo() {
           </div>
         </div>
 
-        {/* Chat Area */}
-        <div className="flex-1 p-4 sm:p-6 flex flex-col gap-4">
-          <div className="flex justify-between items-center">
-              {messages.length > 0}
-            {history.length > 0 && (
-              <button
-                onClick={handleClearHistory}
-                className="border-yellow-500 border-2  w-64 h-14 rounded-3xl text-xl font-extrabold text-red-500 hover:text-red-700"
-              >
-                Clear Neural Network
-              </button>
-            )}
+       {/* Chat Area */}
+<div className="flex-1 p-4 sm:p-6 flex flex-col gap-4 min-h-0">
+  <div className="flex justify-between items-center">
+    {messages.length > 0}
+    {history.length > 0 && (
+      <button
+        onClick={handleClearHistory}
+        className="border-yellow-500 border-2 w-64 h-14 rounded-3xl text-xl font-extrabold text-red-500 hover:text-red-700"
+      >
+        Clear Neural Network
+      </button>
+    )}
+  </div>
+  {/* 👇 Scrollable chat container */}
+  <div className="flex-1 overflow-y-auto min-h-0">
+    <Conversation>
+      <ConversationContent className="p-4 sm:p-6">
+        {messages.length === 0 && !loading && (
+          <div className="flex flex-col items-center justify-center h-full text-gray-300">
+            <p className="text-lg sm:text-xl font-medium">Start a New Conversation</p>
+            <p className="text-sm sm:text-base mt-2 opacity-75">
+              Type your message below or select a previous chat from the sidebar.
+            </p>
           </div>
-<div className="flex-1 overflow-y-auto">
-          <Conversation>
-            <ConversationContent className="p-4 sm:p-6">
-              {messages.length === 0 && !loading && (
-                <div className="flex flex-col items-center justify-center h-full text-gray-300">
-                  <p className="text-lg sm:text-xl font-medium">Start a New Conversation</p>
-                  <p className="text-sm sm:text-base mt-2 opacity-75">
-                    Type your message below or select a previous chat from the sidebar.
-                  </p>
-                </div>
-                
-              )}
-              {messages.map((msg) => (
-                <Message
-                  key={msg.id}
-                  from={msg.role}
-                  className={`transition-all duration-200 mb-4 ${
-                    msg.role === "user" ? "ml-auto max-w-[80%]" : "mr-auto max-w-[80%]"
-                  }`}
-                >
-                  <MessageContent>
-                    <Response>{msg.text}</Response>
-                  </MessageContent>
-                </Message>
-              ))}
-              {loading && (
-                <div className="p-4 flex justify-center">
-                  <Loader className="text-orange-500" />
-                </div>
-              )}
-              {error && (
-                <div>
-                  <AlertCircle className="h-5 w-5" />
-                  <span>{error}</span>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </ConversationContent>
-            <ConversationScrollButton />
-          </Conversation>
+        )}
+        {messages.map((msg) => (
+          <Message
+            key={msg.id}
+            from={msg.role}
+            className={`transition-all duration-200 mb-4 ${
+              msg.role === "user" ? "ml-auto max-w-[80%]" : "mr-auto max-w-[80%]"
+            }`}
+          >
+            <MessageContent>
+              <Response>{msg.text}</Response>
+            </MessageContent>
+          </Message>
+        ))}
+        {loading && (
+          <div className="p-4 flex justify-center">
+            <Loader className="text-orange-500" />
           </div>
+        )}
+        {error && (
+          <div className="flex items-center gap-2 text-red-400">
+            <AlertCircle className="h-5 w-5" />
+            <span>{error}</span>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </ConversationContent>
+      <ConversationScrollButton />
+    </Conversation>
+  </div>
 
           <PromptInput onSubmit={handleSubmit}>
-            
-            <PromptInputTextarea
-              onChange={(e) => setInput(e.target.value)}
-              value={input}
-            />
-            <PromptInputToolbar>
-              <PromptInputSubmit
-                disabled={!input.trim() || loading}
-              />
-            </PromptInputToolbar>
-          </PromptInput>
-        </div>
+    <PromptInputTextarea
+      onChange={(e) => setInput(e.target.value)}
+      value={input}
+    />
+    <PromptInputToolbar>
+      <PromptInputSubmit disabled={!input.trim() || loading} />
+    </PromptInputToolbar>
+  </PromptInput>
+</div>
       </div>
     </div>
   );
