@@ -92,13 +92,6 @@ export default function Navbar() {
             >
               About Me
             </Link>
-            <Link
-              href="/contact"
-              className="block text-gray-200 text-lg font-medium px-4 py-3 rounded-lg hover:bg-gray-700/50 hover:text-blue-400 transition-all duration-200"
-              onClick={toggleMenu}
-            >
-              Contact
-            </Link>
           </div>
         </div>
       </div>
