@@ -50,7 +50,7 @@ const getStatusBadge = (status: ToolUIPart['state']) => {
   } as const;
 
   return (
-    <Badge className="rounded-full text-xs" variant="secondary">
+    <Badge className="rounded-full text-xl" variant="secondary">
       {icons[status]}
       {labels[status]}
     </Badge>
@@ -97,7 +97,7 @@ export type ToolInputProps = ComponentProps<'div'> & {
 
 export const ToolInput = ({ className, input, ...props }: ToolInputProps) => (
   <div className={cn('space-y-2 overflow-hidden p-4', className)} {...props}>
-    <h4 className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
+    <h4 className="font-medium text-muted-foreground text-xl uppercase tracking-wide">
       Parameters
     </h4>
     <div className="rounded-md bg-muted/50">
@@ -123,12 +123,12 @@ export const ToolOutput = ({
 
   return (
     <div className={cn('space-y-2 p-4', className)} {...props}>
-      <h4 className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
+      <h4 className="font-medium text-muted-foreground text-xl uppercase tracking-wide">
         {errorText ? 'Error' : 'Result'}
       </h4>
       <div
         className={cn(
-          'overflow-x-auto rounded-md text-xs [&_table]:w-full',
+          'overflow-x-auto rounded-md text-xl [&_table]:w-full',
           errorText
             ? 'bg-destructive/10 text-destructive'
             : 'bg-muted/50 text-foreground'

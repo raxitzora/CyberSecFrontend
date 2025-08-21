@@ -52,9 +52,12 @@ export const CodeBlock = ({
           customStyle={{
             margin: 0,
             padding: '1rem',
-            fontSize: '0.875rem',
+            fontSize: '0.9rem',
             background: 'hsl(var(--background))',
             color: 'hsl(var(--foreground))',
+            lineHeight:"1.5",
+            overflowX:"auto",
+            borderRadius:"0.5rem"
           }}
           language={language}
           lineNumberStyle={{
@@ -92,6 +95,7 @@ export const CodeBlock = ({
         </SyntaxHighlighter>
         {children && (
           <div className="absolute top-2 right-2 flex items-center gap-2">
+            
             {children}
           </div>
         )}

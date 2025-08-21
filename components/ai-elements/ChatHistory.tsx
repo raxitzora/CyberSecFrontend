@@ -69,7 +69,7 @@ export function ChatHistory({
         </div>
         <button
           onClick={onNewChat}
-          className="w-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 shadow-md transition-colors duration-200"
+          className="w-full px-3 sm:px-4 py-2 text-xl sm:text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 shadow-md transition-colors duration-200"
           aria-label="Start new chat"
         >
           + New Chat
@@ -83,7 +83,7 @@ export function ChatHistory({
             <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-t-2 border-b-2 border-blue-500"></div>
           </div>
         ) : filteredHistory.length === 0 ? (
-          <p className="text-xs sm:text-sm text-gray-400 p-3 sm:p-4 text-center">
+          <p className="text-xl sm:text-sm text-gray-400 p-3 sm:p-4 text-center">
             {searchTerm ? "No matching chats found" : "No chats yet"}
           </p>
         ) : (
@@ -104,12 +104,12 @@ export function ChatHistory({
                     aria-label={`Select chat: ${firstUserMessage}`}
                   >
                     <div className="flex flex-col">
-                      <span className="text-xs sm:text-sm font-medium text-gray-100 truncate max-w-[calc(100%-2rem)] sm:max-w-[calc(100%-3rem)]">
+                      <span className="text-xl sm:text-sm font-medium text-gray-100 truncate max-w-[calc(100%-2rem)] sm:max-w-[calc(100%-3rem)]">
                         {firstUserMessage.length > 40
                           ? firstUserMessage.substring(0, 40) + "..."
                           : firstUserMessage}
                       </span>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xl text-gray-400">
                         {formatDate(chat.createdAt)}
                       </span>
                     </div>
