@@ -67,6 +67,9 @@ export default function ChatBotDemo() {
     e.preventDefault();
     if (!input.trim()) return;
 
+    // blur the input to hide keyboard
+  (document.activeElement as HTMLElement)?.blur();
+
     const tempId = `temp-${Math.random()}`; // client-safe ID
     const userMessage: ChatMessage = {
       id: tempId,
@@ -132,6 +135,8 @@ export default function ChatBotDemo() {
     } finally {
       setLoading(false);
       setInput("");
+       // Scroll to bottom again after keyboard hides
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
