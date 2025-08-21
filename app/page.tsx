@@ -221,7 +221,7 @@ export default function ChatBotDemo() {
   {/* 👇 Scrollable chat container */}
   <div className="flex-1 overflow-y-auto min-h-0">
     <Conversation>
-      <ConversationContent className="p-4 sm:p-6">
+      <ConversationContent className="p-4 sm:p-6 space-y-4">
         {messages.length === 0 && !loading && (
           <div className="flex flex-col items-center justify-center h-full text-gray-300">
             <p className="text-lg sm:text-xl font-medium">Start a New Conversation</p>
@@ -234,11 +234,11 @@ export default function ChatBotDemo() {
           <Message
             key={msg.id}
             from={msg.role}
-            className={`transition-all duration-200 mb-4 ${
-              msg.role === "user" ? "ml-auto max-w-[80%]" : "mr-auto max-w-[80%]"
+            className={`transition-all duration-200 ${
+              msg.role === "user" ? "ml-auto max-w-[85%]" : "mr-auto max-w-[85%]"
             }`}
           >
-            <MessageContent>
+            <MessageContent className="break-words whitespace-pre-wrap w-full">
               <Response>{msg.text}</Response>
             </MessageContent>
           </Message>
