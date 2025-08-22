@@ -17,10 +17,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-##  Getting Started Backend
-=> https://github.com/raxitzora/CyberSecBackend [ clone this repository for backend ]
-```bash
-install requirements [ pip install -r requirements.txt ]
-setup .env GROQ_API_KEY from here [ https://console.groq.com/keys ]
-uvicorn main:app --reload
-```
+
+## Getting started Backend
+First clone this Repository:
+`https://github.com/raxitzora/CyberSecBackend`
+
+## Install requirements.txt
+`pip install -r requirements.txt`
+
+## setup .env api keys from here :
+USE GROQ_API_KEY
+
+`https://console.groq.com/keys`
+
+## Start server 
+`uvicorn main:app --reload`
