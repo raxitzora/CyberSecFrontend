@@ -39,7 +39,7 @@ export default function Navbar() {
             <>
               {/* Sign In */}
               <SignInButton mode="modal">
-                <button className="text-sm px-3 py-1.5 rounded-md border border-gray-700 hover:bg-gray-800 transition">
+                <button className="text-sm px-3 py-1.5 rounded-md border border-gray-700 hover:bg-green-500 transition bg-green-400 ">
                   Sign In
                 </button>
               </SignInButton>

@@ -1,11 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useUser, SignInButton, UserButton } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { ChatHistory } from "@/components/ai-elements/ChatHistory";
 import { Message, MessageContent } from "@/components/ai-elements/message";
 import { Loader } from "@/components/ai-elements/loader";
 import { AlertCircle } from "lucide-react";
+import {toast} from "sonner";
+
+
 
 type ChatMessage = {
   id: string;
@@ -56,11 +59,12 @@ export default function ChatBotDemo() {
 
     if (!input.trim()) return;
 
-    if (!user) {
-      alert("Please login first");
-      return;
-    }
-
+  if (!isSignedIn) {
+  toast.error("Please login first", {
+    description: "You need to login to use the chatbot",
+  });
+  return;
+}
     const userMessage: ChatMessage = {
       id: `user-${Date.now()}`,
       role: "user",

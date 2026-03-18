@@ -3,6 +3,7 @@ import "./globals.css";
 import { Metadata } from "next";
 import Navbar from "@/components/ui/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 
 export const metadata: Metadata = {
@@ -41,7 +42,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        {children}</body>
+        {children}
+        <Toaster position="top-center"/></body>
     </html>
     </ClerkProvider>
   );
