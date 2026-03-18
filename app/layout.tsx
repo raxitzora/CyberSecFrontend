@@ -2,6 +2,8 @@
 import "./globals.css";
 import { Metadata } from "next";
 import Navbar from "@/components/ui/Navbar";
+import { ClerkProvider } from "@clerk/nextjs";
+
 
 export const metadata: Metadata = {
   title: "Cybersecurity AI Chatbot | Raxit Zora",
@@ -35,10 +37,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body>
         <Navbar />
         {children}</body>
     </html>
+    </ClerkProvider>
   );
 }
